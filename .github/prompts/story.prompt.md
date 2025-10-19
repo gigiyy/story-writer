@@ -13,15 +13,17 @@ As a {user_role}, I want to {user_goal} so that {user_benefit}.
 ## Acceptance Criteria
 // write acceptance criteria in gherkin format
 // each scenario should cover a specific aspect of the story
-```gherkin
+````gherkin
 Scenario: {scenario_description}
   Given {initial_context}
   When {event_occurs}
   Then {expected_outcome}
-```
+````
 ## Notes
 // write any additional notes relevant to the story here
+
 // such as input validation, performance considerations, edge cases, etc.
+
 // keep it concise and focused on the story
 
 ```
