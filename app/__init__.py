@@ -1,29 +1,18 @@
-"""Flask application entry point."""
-from flask import Flask, render_template, request, jsonify
-from .fib.calculator import calculate_fibonacci
+"""Main application module."""
+from flask import Flask, redirect, url_for
 
-app = Flask(__name__)
 
-@app.route('/')
-def index():
-    """Render the main page with the Fibonacci calculator."""
-    return render_template('index.html')
+def create_app():
+    """Create and configure the application."""
+    app = Flask(__name__)
 
-@app.route('/api/fibonacci', methods=['POST'])
-def calculate():
-    """API endpoint to calculate Fibonacci numbers."""
-    try:
-        data = request.get_json()
-        n = data.get('number')
-        if n is None:
-            return jsonify({'error': 'No number provided'}), 400
+    @app.route('/')
+    def index():
+        """Redirect to Fibonacci calculator."""
+        return redirect(url_for('fibonacci.index'))
 
-        result = calculate_fibonacci(n)
-        return jsonify({'result': result})
-    except ValueError as e:
-        return jsonify({'error': str(e)}), 400
-    except Exception as e:
-        return jsonify({'error': 'Internal server error'}), 500
+    # Register blueprints
+    from app.fib import bp as fib_bp
+    app.register_blueprint(fib_bp)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    return app

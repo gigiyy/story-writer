@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Fibonacci Calculator{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="card-title mb-0">Fibonacci Calculator</h2>
+                </div>
+                <div class="card-body">
+                    <form id="calculator-form" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="number-input" class="form-label">Enter a number (0-100)</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="number-input" 
+                                   required 
+                                   min="0" 
+                                   max="100" 
+                                   step="1"
+                                   aria-describedby="number-help">
+                            <div class="invalid-feedback">
+                                Please enter a valid integer between 0 and 100.
+                            </div>
+                            <div id="number-help" class="form-text">
+                                Calculations for numbers above 40 may take longer.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="calculate-btn">
+                            Calculate
+                        </button>
+                    </form>
+
+                    <div id="result-container" class="mt-4 d-none">
+                        <h4>Result</h4>
+                        <div class="alert alert-success" role="alert">
+                            The Fibonacci number at position <span id="result-input"></span> is:
+                            <strong id="result-value"></strong>
+                        </div>
+                    </div>
+
+                    <div id="history-container" class="mt-4">
+                        <h4>Recent Calculations</h4>
+                        <ul class="list-group" id="history-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('calculator-form');
+    const input = document.getElementById('number-input');
+    const calculateBtn = document.getElementById('calculate-btn');
+    const resultContainer = document.getElementById('result-container');
+    const resultInput = document.getElementById('result-input');
+    const resultValue = document.getElementById('result-value');
+    const historyList = document.getElementById('history-list');
+    
+    // Client-side validation
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (!form.checkValidity()) {
+            e.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+        }
+        
+        const n = parseInt(input.value);
+        calculateBtn.disabled = true;
+        
+        // No progress bar logic
+        
+        try {
+            const response = await fetch('/fibonacci/calculate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ n: n })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                resultInput.textContent = data.input;
+                resultValue.textContent = data.result;
+                resultContainer.classList.remove('d-none');
+                
+                // Add to history
+                const historyItem = document.createElement('li');
+                historyItem.className = 'list-group-item';
+                historyItem.innerHTML = `
+                    <button class="btn btn-link p-0" onclick="document.getElementById('number-input').value=${data.input}">
+                        F(${data.input}) = ${data.result}
+                    </button>`;
+                historyList.insertBefore(historyItem, historyList.firstChild);
+                
+                // Keep only last 5 calculations
+                while (historyList.children.length > 5) {
+                    historyList.removeChild(historyList.lastChild);
+                }
+            } else {
+                throw new Error(data.error);
+            }
+        } catch (error) {
+            resultContainer.classList.remove('d-none');
+            resultContainer.querySelector('.alert').className = 'alert alert-danger';
+            resultInput.textContent = input.value;
+            resultValue.textContent = `Error: ${error.message}`;
+        } finally {
+            calculateBtn.disabled = false;
+        }
+    });
+    
+    // Real-time validation
+    input.addEventListener('input', function() {
+        form.classList.remove('was-validated');
+        const value = this.value;
+        if (value === '' || isNaN(value)) {
+            this.setCustomValidity('Please enter a number');
+        } else if (value.includes('.')) {
+            this.setCustomValidity('Please enter a whole number');
+        } else if (parseInt(value) < 0) {
+            this.setCustomValidity('Please enter a non-negative number');
+        } else if (parseInt(value) > 100) {
+            this.setCustomValidity('Please enter a number less than or equal to 100');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+});
+</script>
+{% endblock %}

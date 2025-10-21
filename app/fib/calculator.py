@@ -1,35 +1,41 @@
-"""Fibonacci calculator module."""
-from typing import Union
+"""Module for Fibonacci number calculation."""
 
-def calculate_fibonacci(n: Union[int, float]) -> int:
-    """
-    Calculate the nth Fibonacci number.
 
-    Args:
-        n (Union[int, float]): The index of the Fibonacci number to calculate.
-            Must be a non-negative integer.
+class FibCalculator:
+    """A class to calculate Fibonacci numbers efficiently with caching."""
 
-    Returns:
-        int: The nth Fibonacci number.
+    def __init__(self):
+        """Initialize the calculator with an empty cache."""
+        self._cache = {0: 0, 1: 1}
 
-    Raises:
-        ValueError: If n is negative or not an integer.
-    """
-    # Input validation
-    if not isinstance(n, (int, float)):
-        raise ValueError("Input must be a non-negative integer")
-    if not float(n).is_integer():
-        raise ValueError("Input must be a non-negative integer")
-    n = int(n)
-    if n < 0:
-        raise ValueError("Input must be a non-negative integer")
+    def calculate(self, n: int) -> int:
+        """
+        Calculate the nth Fibonacci number.
 
-    # Base cases
-    if n <= 1:
-        return n
+        Args:
+            n: The position in the Fibonacci sequence to calculate (0-based)
 
-    # Calculate Fibonacci number iteratively for better performance
-    a, b = 0, 1
-    for _ in range(2, n + 1):
-        a, b = b, a + b
-    return b
+        Returns:
+            The nth Fibonacci number
+
+        Raises:
+            ValueError: If n is negative, non-integer, or greater than 100
+        """
+        # Input validation
+        if not isinstance(n, int):
+            raise ValueError("Input must be an integer")
+        if n < 0:
+            raise ValueError("Input must be non-negative")
+        if n > 100:
+            raise ValueError("Input must be less than or equal to 100")
+
+        # Return cached value if available
+        if n in self._cache:
+            return self._cache[n]
+
+        # Calculate using dynamic programming approach
+        for i in range(2, n + 1):
+            if i not in self._cache:
+                self._cache[i] = self._cache[i-1] + self._cache[i-2]
+
+        return self._cache[n]

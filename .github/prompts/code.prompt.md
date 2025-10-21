@@ -3,16 +3,10 @@ mode: agent
 ---
 # code prompt
 
-## technology stack
-- Python 3.10+
-- pytest for testing
-- flask for web framework (if applicable)
-- Jinja2 for templating (if applicable)
-- SQLAlchemy for database ORM (if applicable)
-- bootstrap for frontend styling (if applicable)
+First formulate tasks needed to while following the instructions below, then write or update the code accordingly.
 
 ## instructions
-- read `github.instructions.md` and `src.instructions.md` to understand the project requirements for documentation.
+- read `project.instructions.md` and `app.instructions.md` to understand the project requirements for documentation.
 - with this prompt should help develop new or refactor existing code based on input story name and optional package name, if no package name provide duse 'util' as package name.
 - use best practices for code structure, naming conventions, and documentation.
 - write unit tests for all new or modified code.
