@@ -21,10 +21,7 @@ Scenario: Smart input validation
 Scenario: Efficient calculation handling
   Given I have entered a valid number n between 0 and 100
   When I submit the calculation request
-  Then I see a progress indicator for numbers above 40
-  And the result displays within 2 seconds for n ≤ 40
-  And large calculations (n > 40) show intermediate progress
-  And the final result includes the sequence position and value
+  Then the result displays within 1 seconds
 
 Scenario: Cross-device accessibility
   Given I access the calculator from any device

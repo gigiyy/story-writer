@@ -5,6 +5,8 @@ mode: agent
 
 First formulate tasks needed to while following the instructions below, then write or update the code accordingly.
 
+in case the application isn't created yet, create the entry point and boilerplate code as per instructions.
+
 ## instructions
 - read `project.instructions.md` and `app.instructions.md` to understand the project requirements for documentation.
 - with this prompt should help develop new or refactor existing code based on input story name and optional package name, if no package name provide duse 'util' as package name.
