@@ -1,19 +1,21 @@
 ---
 mode: agent
 ---
-# code prompt
 
-First formulate tasks needed to while following the instructions below, then write or update the code accordingly.
+# Code Prompt
 
-in case the application isn't created yet, create the entry point and boilerplate code as per instructions.
+First, break down the required tasks according to the instructions below. Then, write or update the code as needed.
 
-## instructions
-- read `project.instructions.md` and `app.instructions.md` to understand the project requirements for documentation.
-- with this prompt should help develop new or refactor existing code based on input story name and optional package name, if no package name provide duse 'util' as package name.
-- use best practices for code structure, naming conventions, and documentation.
-- write unit tests for all new or modified code.
-- the code format should follow the requirements in the instructions files.
-- create the source file if not exists, otherwise edit the existing document.
-- always ensure that the test code should be created or updated first before the production code.
-- the test code should be put under tests folder, and follow the same package structure as the source code.
-- ask follow up questions when certain aspects not clear enough to write a clear, small enough user story.
+If the application does not exist yet, create the entry point and boilerplate code following the instructions.
+
+## Instructions
+
+- Read `project.instructions.md` and `app.instructions.md` to understand project requirements and documentation standards.
+- Use this prompt to develop new code or refactor existing code based on the input story name and optional package name. If no package name is provided, come up the name according to the story or use `util` as the default; confirm with the user.
+- Follow best practices for code structure, naming conventions, and documentation.
+- Write unit tests for all new or modified code.
+- Ensure code formatting and organization comply with the requirements in the instructions files.
+- Create the source file if it does not exist; otherwise, update the existing file.
+- Always create or update the test code before the production code.
+- Place test code under the `tests` folder, mirroring the source code's package structure.
+- If any aspect of the user story is unclear, ask follow-up questions to clarify and keep the story concise and focused.

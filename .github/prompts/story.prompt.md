@@ -1,29 +1,32 @@
 ---
 mode: agent
 ---
-# story prompt
 
-Follow the instructions to write document meant for both technical and non-technical stakeholders.
+# Story Prompt
 
-## instructions
+Use the instructions below to write documentation suitable for both technical and non-technical stakeholders.
 
-- read `project.instructions.md` and `docs.instructions.md` to understand the project requirements for documentation.
-- with this prompt should help write new or update existing user story based on input description.
-- find if similar user story already exists, if found, ask user if they want to update it or create a new one.
-- use the template provided below 
-- the document format should follow the requirements in the instructions files.
-- ask follow up questions when certain aspects not clear enough to write a clear, small enough user story.
+## Instructions
 
-## template
-template to write user story
+- Read `project.instructions.md` and `docs.instructions.md` to understand project and documentation requirements.
+- Use this prompt to write or update a user story based on the input description.
+- Check if a similar user story already exists. If found, ask the user whether to update it or create a new one.
+- User story file should be named `user-story-{storyName}.md`.
+- Use the template provided below.
+- Ensure the document format follows the requirements in the instructions files.
+- If any aspect of the user story is unclear, ask follow-up questions to clarify and keep the story concise and focused.
+
+## Template
+
+Use the following template to write a user story:
 
 ```markdown
 # User Story: {story_name}
 As a {user_role}, I want to {user_goal} so that {user_benefit}.
 
 ## Acceptance Criteria
-// write acceptance criteria in gherkin format with each scenario should cover a specific aspect of the story
+// Write acceptance criteria in Gherkin format. Each scenario should cover a specific aspect of the story.
 
 ## Notes
-// write any additional technology details relevant to the story here, such as input validation, performance considerations, edge cases, etc.
+// Add any relevant technology details, such as input validation, performance considerations, edge cases, etc.
 ```
