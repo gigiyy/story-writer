@@ -7,34 +7,42 @@ def test_upload_csv_web(client):
     data = {
         'file': (io.BytesIO(b'TRANSACTION_ID,TRANSACTION_AMOUNT\n1,100\n2,50'), 'test.csv')
     }
-    response = client.post('/aml/upload_csv', data=data, content_type='multipart/form-data', headers={'Accept': 'application/json'})
+    response = client.post('/aml/upload_csv', data=data, content_type='multipart/form-data')
     assert response.status_code == 200
-    json_data = response.get_json()
-    assert json_data['accepted'] == 2
-    assert json_data['rejected'] == 0
-    assert json_data['total'] == 2
+    html = response.data.decode()
+    import re
+    # Check table headers
+    assert '<th>Accepted</th>' in html
+    assert '<th>Rejected</th>' in html
+    assert '<th>Total</th>' in html
+    # Check table row values in order, allowing whitespace
+    assert re.search(r'<tr>\s*<td>2</td>\s*<td>0</td>\s*<td>2</td>\s*</tr>', html)
 
     # Test duplicate IDs (all rows with duplicate ID rejected)
     data = {
         'file': (io.BytesIO(b'TRANSACTION_ID,TRANSACTION_AMOUNT\n1,100\n1,50\n2,10'), 'test.csv')
     }
-    response = client.post('/aml/upload_csv', data=data, content_type='multipart/form-data', headers={'Accept': 'application/json'})
+    response = client.post('/aml/upload_csv', data=data, content_type='multipart/form-data')
     assert response.status_code == 200
-    json_data = response.get_json()
-    assert json_data['accepted'] == 1
-    assert json_data['rejected'] == 2
-    assert json_data['total'] == 3
+    html = response.data.decode()
+    import re
+    assert '<th>Accepted</th>' in html
+    assert '<th>Rejected</th>' in html
+    assert '<th>Total</th>' in html
+    assert re.search(r'<tr>\s*<td>1</td>\s*<td>2</td>\s*<td>3</td>\s*</tr>', html)
 
     # Test negative and zero amounts
     data = {
         'file': (io.BytesIO(b'TRANSACTION_ID,TRANSACTION_AMOUNT\n1,0\n2,-5\n3,10'), 'test.csv')
     }
-    response = client.post('/aml/upload_csv', data=data, content_type='multipart/form-data', headers={'Accept': 'application/json'})
+    response = client.post('/aml/upload_csv', data=data, content_type='multipart/form-data')
     assert response.status_code == 200
-    json_data = response.get_json()
-    assert json_data['accepted'] == 1
-    assert json_data['rejected'] == 2
-    assert json_data['total'] == 3
+    html = response.data.decode()
+    import re
+    assert '<th>Accepted</th>' in html
+    assert '<th>Rejected</th>' in html
+    assert '<th>Total</th>' in html
+    assert re.search(r'<tr>\s*<td>1</td>\s*<td>2</td>\s*<td>3</td>\s*</tr>', html)
 
 @pytest.fixture
 def client():
