@@ -1,5 +1,5 @@
 import pytest
-from app.aml.upload_csv import validate_csv_records
+from app.aml.csv_validation import validate_csv_records
 
 class DummyFile:
     def __init__(self, content):

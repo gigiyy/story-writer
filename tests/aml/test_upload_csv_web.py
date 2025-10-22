@@ -7,7 +7,7 @@ def test_upload_csv_web(client):
     data = {
         'file': (io.BytesIO(b'TRANSACTION_ID,TRANSACTION_AMOUNT\n1,100\n2,50'), 'test.csv')
     }
-    response = client.post('/aml/upload_csv', data=data, content_type='multipart/form-data')
+    response = client.post('/aml/upload', data=data, content_type='multipart/form-data')
     assert response.status_code == 200
     html = response.data.decode()
     import re
@@ -22,7 +22,7 @@ def test_upload_csv_web(client):
     data = {
         'file': (io.BytesIO(b'TRANSACTION_ID,TRANSACTION_AMOUNT\n1,100\n1,50\n2,10'), 'test.csv')
     }
-    response = client.post('/aml/upload_csv', data=data, content_type='multipart/form-data')
+    response = client.post('/aml/upload', data=data, content_type='multipart/form-data')
     assert response.status_code == 200
     html = response.data.decode()
     import re
@@ -35,7 +35,7 @@ def test_upload_csv_web(client):
     data = {
         'file': (io.BytesIO(b'TRANSACTION_ID,TRANSACTION_AMOUNT\n1,0\n2,-5\n3,10'), 'test.csv')
     }
-    response = client.post('/aml/upload_csv', data=data, content_type='multipart/form-data')
+    response = client.post('/aml/upload', data=data, content_type='multipart/form-data')
     assert response.status_code == 200
     html = response.data.decode()
     import re

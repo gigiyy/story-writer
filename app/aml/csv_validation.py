@@ -1,7 +1,7 @@
 
 import csv
 from typing import Dict
-from app.aml.rules import rule_transaction_amount_positive, rule_transaction_id_unique
+from app.aml.validation_rules import rule_transaction_amount_positive, rule_transaction_id_unique
 
 def validate_csv_records(csv_content: str) -> Dict[str, int]:
     accepted = 0
