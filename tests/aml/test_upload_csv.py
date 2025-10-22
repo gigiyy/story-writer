@@ -8,14 +8,14 @@ class DummyFile:
         return self.content
 
 def test_all_rows_accepted():
-    csv_content = "id,name\n1,Alice\n2,Bob"
+    csv_content = "TRANSACTION_ID,TRANSACTION_AMOUNT\n1,100\n2,50"
     result = validate_csv_records(csv_content)
     assert result['accepted'] == 2
     assert result['rejected'] == 0
     assert result['total'] == 2
 
 def test_some_rows_rejected():
-    csv_content = "id,name\n1,Alice\n,"
+    csv_content = "TRANSACTION_ID,TRANSACTION_AMOUNT\n1,100\n2,0"
     result = validate_csv_records(csv_content)
     assert result['accepted'] == 1
     assert result['rejected'] == 1
