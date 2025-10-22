@@ -14,5 +14,7 @@ def create_app():
     # Register blueprints
     from app.fib import bp as fib_bp
     app.register_blueprint(fib_bp)
+    from app.aml import bp as aml_bp
+    app.register_blueprint(aml_bp)
 
     return app
