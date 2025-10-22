@@ -25,7 +25,7 @@ Use the following template to write a user story:
 As a {user_role}, I want to {user_goal} so that {user_benefit}.
 
 ## Acceptance Criteria
-// Write acceptance criteria in Gherkin format. Each scenario should cover a specific aspect of the story.
+// Write acceptance criteria in Gherkin format. Each scenario should cover a specific aspect of the story. ACs should be put inside code blocks.
 
 ## Notes
 // Add any relevant technology details, such as input validation, performance considerations, edge cases, etc.
