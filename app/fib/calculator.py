@@ -36,6 +36,6 @@ class FibCalculator:
         # Calculate using dynamic programming approach
         for i in range(2, n + 1):
             if i not in self._cache:
-                self._cache[i] = self._cache[i-1] + self._cache[i-2]
+                self._cache[i] = self._cache[i - 1] + self._cache[i - 2]
 
         return self._cache[n]

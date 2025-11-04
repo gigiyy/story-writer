@@ -1,5 +1,6 @@
 """Test module for Fibonacci calculator."""
 import pytest
+
 from app.fib.calculator import FibCalculator
 
 

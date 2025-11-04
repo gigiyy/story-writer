@@ -1,4 +1,5 @@
-from flask import Blueprint, request, jsonify, render_template
+from flask import Blueprint, jsonify, render_template, request
+
 from app.aml.csv_validation import validate_csv_records
 
 bp = Blueprint('aml', __name__, url_prefix='/aml')
