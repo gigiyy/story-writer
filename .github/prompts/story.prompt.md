@@ -8,7 +8,7 @@ Use the instructions below to write documentation suitable for both technical an
 
 ## Instructions
 
-- Read `project.instructions.md` and `docs.instructions.md` to understand project and documentation requirements.
+- Read [project instructions](../instructions/project.instructions.md) and [docs instructions](../instructions/docs.instructions.md) to understand project and documentation requirements.
 - Use this prompt to write or update a user story based on the input description.
 - Check if a similar user story already exists. If found, ask the user whether to update it or create a new one.
 - User story file should be named `user-story-{storyName}.md`.

@@ -10,7 +10,7 @@ If the application does not exist yet, create the entry point and boilerplate co
 
 ## Instructions
 
-- Read `project.instructions.md` and `app.instructions.md` to understand project requirements and documentation standards.
+- Read [project instructions](../instructions/project.instructions.md) and [app instructions](../instructions/app.instructions.md) to understand project requirements and documentation standards.
 - Use this prompt to develop new code or refactor existing code based on the input story name and optional package name. If no package name is provided, come up the name according to the story or use `util` as the default; confirm with the user.
 - Follow best practices for code structure, naming conventions, and documentation.
 - Write unit tests for all new or modified code.
